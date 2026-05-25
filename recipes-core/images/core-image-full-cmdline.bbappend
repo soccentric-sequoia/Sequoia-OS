@@ -2,18 +2,17 @@
 IMAGE_INSTALL:append = " \
     swupdate \
     swupdate-www \
-    rpi5-swupdate-config \
+    sequoia-swupdate-config \
 "
 
 # Persistent /home partition init — creates /home/rpi on first boot after
 # the empty ext4 home partition (p4) is mounted over /home.
-IMAGE_INSTALL:append = " rpi5-home-init"
+IMAGE_INSTALL:append = " sequoia-home-init"
 
 # Connectivity — Ethernet DHCP, WiFi (wpa_supplicant), Bluetooth
-# linux-firmware-rpidistro is pulled in by meta-raspberrypi MACHINE_EXTRA_RRECOMMENDS
-# but we declare the tools explicitly for clarity.
+# WiFi/BT packages are included for LattePanda variants with wireless modules.
 IMAGE_INSTALL:append = " \
-    rpi5-connectivity \
+    sequoia-connectivity \
     wpa-supplicant \
     iw \
     rfkill \
@@ -79,6 +78,13 @@ IMAGE_INSTALL:append = " \
 IMAGE_INSTALL:append = " \
     can-utils \
 "
+
+# Intel x86 machine defaults use an EFI-based A/B WIC layout.
+WKS_FILE:intel-corei7-64 = "sequoia-intel.wks"
+WKS_FILE:genericx86-64 = "sequoia-intel.wks"
+WKS_FILE:genericx86 = "sequoia-intel.wks"
+WKS_FILE:lattepanda = "sequoia-intel.wks"
+WKS_FILE:lattepanda-64 = "sequoia-intel.wks"
 
 # System / hardware inspection
 IMAGE_INSTALL:append = " \
