@@ -1,0 +1,43 @@
+software =
+    {
+        version = "@@VERSION@@";
+        hardware- compatibility =["1.0"];
+
+/*
+ * Raspberry Pi 5 — A/B rootfs OTA update
+ *
+ * Workflow:
+ *   1. pre-install.sh  identifies the inactive slot (p2 or p3) and
+ *      creates the /dev/swupdate-inactive symlink.
+ *   2. The "raw" handler streams rootfs.ext4.gz onto that device.
+ *   3. post-install.sh updates /boot/cmdline.txt so the new slot
+ *      is selected on the next reboot, then cleans up temp files.
+ *   4. SWUpdate triggers `reboot` via postupdatecmd in swupdate.cfg.
+ *
+ * To deliver the update:
+ *   • Web UI  : http://<device-ip>:8080  (drag-and-drop .swu)
+ *   • CLI push: swupdate-client -v <device-ip> rpi5-<version>.swu
+ */
+
+images: (
+    {
+        filename   = "rootfs.ext4.gz";
+        type       = "raw";
+        device     = "/dev/swupdate-inactive";
+        compressed = "zlib";
+    }
+);
+
+scripts: (
+    {
+        filename = "pre-install.sh";
+        type     = "shellscript";
+        data     = "preinst";
+    },
+    {
+        filename = "post-install.sh";
+        type     = "shellscript";
+        data     = "postinst";
+    }
+);
+};
