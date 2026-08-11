@@ -1,4 +1,20 @@
-# OTA via SWUpdate — A/B rootfs slot switching, web UI on :8080
+SUMMARY = "Sequoia OS — production image for Intel x86 (LattePanda)"
+DESCRIPTION = "Full image with A/B OTA (SWUpdate), gRPC/Protobuf middleware, \
+hardware interface tooling, and connectivity."
+HOMEPAGE = "https://github.com/SiliconCentric/Sequoia-OS"
+LICENSE = "MIT"
+
+# Base on core-image-full-cmdline (provides bash, sshd-openssh, package
+# management and the base IMAGE_INSTALL framework).  core-image-full-cmdline
+# is an *image recipe*, not a bbclass, so it must be pulled in with `require`
+# (not `inherit`).  The previous split between this recipe (missing) and a
+# core-image-full-cmdline.bbappend left the kas target `sequoia-image`
+# without a provider; the canonical fix (mirroring Acadia/Orion) is a single
+# recipe carrying all the image deltas.
+require recipes-extended/images/core-image-full-cmdline.bb
+IMAGE_FEATURES += "ssh-server-openssh"
+
+# OTA / swupdate — A/B rootfs slot switching, web UI on :8080
 IMAGE_INSTALL:append = " \
     swupdate \
     swupdate-www \
@@ -79,17 +95,9 @@ IMAGE_INSTALL:append = " \
     can-utils \
 "
 
-# Intel x86 machine defaults use an EFI-based A/B WIC layout.
-WKS_FILE:intel-corei7-64 = "sequoia-intel.wks"
-WKS_FILE:genericx86-64 = "sequoia-intel.wks"
-WKS_FILE:genericx86 = "sequoia-intel.wks"
-WKS_FILE:lattepanda = "sequoia-intel.wks"
-WKS_FILE:lattepanda-64 = "sequoia-intel.wks"
-
 # System / hardware inspection
 IMAGE_INSTALL:append = " \
     lshw \
-    usbutils \
     ethtool \
     devmem2 \
     cpupower \
@@ -102,9 +110,15 @@ IMAGE_INSTALL:append = " \
     python3-periphery \
 "
 
-# Add local user 'rpi' with password 'rpi' and sudo access
-inherit extrausers
+# Intel x86 machine defaults use an EFI-based A/B WIC layout.
+WKS_FILE:genericx86-64 = "sequoia-intel.wks"
+WKS_FILE:genericx86 = "sequoia-intel.wks"
+WKS_FILE:intel-corei7-64 = "sequoia-intel.wks"
+WKS_FILE:lattepanda = "sequoia-intel.wks"
+WKS_FILE:lattepanda-64 = "sequoia-intel.wks"
 
+# Operator account 'rpi' with password 'rpi' and sudo access
+inherit extrausers
 EXTRA_USERS_PARAMS = "\
     useradd -m -s /bin/bash -G sudo rpi; \
     usermod -p '\$6\$8.kfghMSYkTHsFqs\$fKQIEp.xMjitUYt9yXjEZBUvKqUOQvxekn5.9hWP9ewiLFSI0LQi5OpaDNfSqh4OU.tzN7co7olMAYg53/kCP0' rpi; \
