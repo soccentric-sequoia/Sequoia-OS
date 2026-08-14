@@ -1,6 +1,6 @@
 # Sequoia-OS
 
-**Remote:** `git@github.com:SiliconCentric/Sequoia-OS.git`
+**Remote:** `git@github.com:soccentric-sequoia/Sequoia-OS.git`
 **Parent project:** [Sequoia](../Sequoia.md) (target hardware: **Intel x86** SoM + platform-I/O south-bridge, reference board **LattePanda**.)
 **Leaf type:** `<Project>-OS`
 **Status:** REAL — actively built out

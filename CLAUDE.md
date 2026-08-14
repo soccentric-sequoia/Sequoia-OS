@@ -60,7 +60,7 @@ SWUpdate scripts switch slots by filesystem label (`rootfs-a`/`rootfs-b`).
 | `poky`              | poky (scarthgap)              | OE core + genericx86-64 machine     |
 | `meta-oe`           | meta-openembedded (scarthgap) | Package set                          |
 | `meta-swupdate`     | sbabic/meta-swupdate (scarthgap) | swupdate OTA framework           |
-| `meta-sequoia`      | SiliconCentric/meta-sequoia (this repo root) | Sequoia image, HAL, swu config |
+| `meta-sequoia`      | soccentric-sequoia/meta-sequoia (this repo root) | Sequoia image, HAL, swu config |
 
 ## Repo Notes
 
