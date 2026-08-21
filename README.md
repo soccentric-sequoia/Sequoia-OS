@@ -1,6 +1,55 @@
-# Sequoia-OS Yocto Layer
+# Sequoia-OS
 
-This layer provides Sequoia-specific image customizations, OTA integration, connectivity defaults, and first-boot initialization for Intel x86 targets.
+## Project Summary
+
+Sequoia-OS is the Yocto-layer and image-integration repository for Sequoia
+Intel x86 targets. Its documented active path customizes a full command-line
+image, selects the Sequoia WIC layout, integrates SWUpdate, initializes the
+persistent home partition on first boot, and installs connectivity defaults for
+Ethernet, WiFi, VLAN, and resolver behavior. The image layout uses EFI/GPT with
+an active `rootfs-a`, an OTA target `rootfs-b`, and persistent `/home`; update
+scripts select slots by filesystem labels rather than fixed device names. The
+repository includes Make helpers, configuration and layer metadata, changelog
+and repository-map documentation, and legacy Raspberry Pi recipes retained for
+reference.
+
+The target metadata identifies the scarthgap Yocto series and LattePanda as a
+reference board. This is image/build integration, not a complete board support
+package: successful boot, network provisioning, partition growth, SWUpdate
+rollback, and package availability depend on the configured build environment
+and hardware. The active Sequoia recipe path should be preferred over legacy
+Raspberry Pi material. No automated test files were found in the repository
+inventory, so the feature table records command/configuration evidence and
+leaves runtime behavior for manual review. Build commands, layer dependencies,
+machine selection, and artifact inspection should be captured by future CI.
+
+The repository is the integration point between Yocto metadata and the
+target's boot/update policy. It does not replace hardware acceptance work in
+Sequoia-HAL or the board inventory currently absent from Sequoia-Hardware.
+Image reproducibility, bootloader settings, signed update policy, and power-loss
+recovery should be documented when they become release requirements.
+
+## Feature Inventory
+
+| # | Name / Description | Implemented? | Test Coverage? | Manual Test |
+|---:|---|---|---|---|
+| 1 | Sequoia Yocto layer metadata and image customization | Implemented | No automated tests found | [ ] Manual verification required |
+| 2 | Sequoia Intel machine/image path | Implemented | Configuration inspection only | [ ] Manual verification required |
+| 3 | EFI/GPT A/B WIC partition layout | Implemented | No automated tests found | [ ] Manual verification required |
+| 4 | SWUpdate runtime configuration and slot helpers | Implemented | No automated tests found | [ ] Manual verification required |
+| 5 | First-boot `/home` expansion and initialization | Implemented | No automated tests found | [ ] Manual verification required |
+| 6 | Ethernet/WiFi/VLAN/resolver defaults | Implemented | No automated tests found | [ ] Manual verification required |
+| 7 | Persistent `/home` across OTA updates | Implemented | No automated tests found | [ ] Manual verification required |
+| 8 | Legacy Raspberry Pi recipe compatibility | Partial | No automated tests found | [ ] Manual verification required |
+| 9 | Reproducible image build and artifact publication | Unknown | No CI test found | [ ] Manual verification required |
+| 10 | Boot, OTA rollback, and recovery on reference hardware | Unknown | No runtime tests found | [ ] Manual verification required |
+
+## Validation
+
+Use the repository `Makefile` and Yocto/Kas configuration to build the image.
+Inspect the generated WIC and SWUpdate artifacts, then exercise first boot,
+networking, A/B update, rollback, and persistence on a Sequoia target.
+
 
 ## Primary Target
 
