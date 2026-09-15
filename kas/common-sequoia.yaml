@@ -16,6 +16,12 @@ local_conf_header:
     # Init manager
     INIT_MANAGER = "systemd"
 
+    # webconfigd talks to systemd over D-Bus via polkit (see its recipe's
+    # 50-webconfigd.polkit.rules). polkit is skipped unless this distro
+    # feature is enabled -- without it, RRECOMMENDS:webconfigd = "... polkit"
+    # has no buildable provider and the image fails to build outright.
+    DISTRO_FEATURES:append = " polkit"
+
     # x86 EFI wic image output  (drop ext4 standalone — rootfs.ext4 is still
     # produced as a side-effect of the wic build and used by the swu target)
     IMAGE_FSTYPES = "wic.bz2 wic.bmap ext4"
