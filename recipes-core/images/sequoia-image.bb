@@ -110,6 +110,16 @@ IMAGE_INSTALL:append = " \
     python3-periphery \
 "
 
+# WebConfig (Sequoia-Configuration's meta-webconfig layer, kas/repos/sequoia-configuration.yaml).
+IMAGE_INSTALL:append = " webconfigd webconfig-static webconfig-schemas webconfig-manifest"
+
+# Instrumentation (Sequoia-Instrumentation's yocto layer,
+# kas/repos/sequoia-instrumentation.yaml). Unlike the other projects, this
+# board (genericx86-64) is in the recipe's COMPATIBLE_MACHINE allowlist and
+# already has an INSTR_BOARD:genericx86-64 -> "x86-64" descriptor mapping,
+# so it actually builds here rather than being a documented no-op.
+IMAGE_INSTALL:append = " instrumentation"
+
 # Intel x86 machine defaults use an EFI-based A/B WIC layout.
 WKS_FILE:genericx86-64 = "sequoia-intel.wks"
 WKS_FILE:genericx86 = "sequoia-intel.wks"

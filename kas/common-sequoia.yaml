@@ -5,6 +5,8 @@ header:
     - repos/meta-openembedded.yaml
     - repos/meta-swupdate.yaml
     - repos/meta-sequoia.yaml
+    - repos/sequoia-configuration.yaml
+    - repos/sequoia-instrumentation.yaml
 
 distro: poky
 target: sequoia-image

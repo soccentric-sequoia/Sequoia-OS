@@ -1,0 +1,18 @@
+header:
+  version: 14
+
+repos:
+  # Sequoia-Instrumentation ships its own Yocto layer (yocto/, collection
+  # name "instrumentation"). Unlike the other projects wired so far,
+  # Sequoia's MACHINE (genericx86-64) IS in the recipe's
+  # COMPATIBLE_MACHINE allowlist, with an existing INSTR_BOARD:genericx86-64
+  # mapping to the "x86-64" descriptor set (devices/capabilities/
+  # resource-profile) already shipped in this leaf's descriptors/ — so this
+  # one is wired into IMAGE_INSTALL, not left as a no-op. See
+  # sequoia-image.bb.
+  sequoia-instrumentation:
+    url: git@github.com:soccentric-sequoia/Sequoia-Instrumentation.git
+    branch: develop
+    path: meta/sequoia-instrumentation
+    layers:
+      yocto:

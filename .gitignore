@@ -10,6 +10,13 @@ downloads/
 # Cloned upstream layers (managed by KAS, never edited by hand)
 layers/
 
+# meta/sequoia-configuration and meta/sequoia-instrumentation are nested
+# clones with their own upstream (soccentric-sequoia/Sequoia-Configuration.git,
+# soccentric-sequoia/Sequoia-Instrumentation.git), fetched by kas — never
+# tracked here. (This repo's own layer content stays at the repo root — see
+# CLAUDE.md's "Architecture note".)
+meta/*
+
 # BitBake lock and pseudo database
 bitbake.lock
 pseudodone
