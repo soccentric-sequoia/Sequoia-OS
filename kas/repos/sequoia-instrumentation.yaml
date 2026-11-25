@@ -11,7 +11,7 @@ repos:
   # one is wired into IMAGE_INSTALL, not left as a no-op. See
   # sequoia-image.bb.
   sequoia-instrumentation:
-    url: git@github.com:soccentric-sequoia/Sequoia-Instrumentation.git
+    url: https://github.com/soccentric-sequoia/Sequoia-Instrumentation.git
     branch: develop
     path: meta/sequoia-instrumentation
     layers:
