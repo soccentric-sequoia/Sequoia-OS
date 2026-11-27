@@ -109,8 +109,7 @@ IMAGE_INSTALL:append = " \
     python3-periphery \
 "
 
-# WebConfig (Sequoia-Configuration's meta-webconfig layer, kas/repos/sequoia-configuration.yaml).
-IMAGE_INSTALL:append = " webconfigd webconfig-static webconfig-schemas webconfig-manifest"
+# WebConfig web UI intentionally not installed (removed from all OS builds).
 
 # Instrumentation (Sequoia-Instrumentation's yocto layer,
 # kas/repos/sequoia-instrumentation.yaml). Unlike the other projects, this
